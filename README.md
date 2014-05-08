@@ -1,3 +1,13 @@
+## Shoptology Updated Pattern Lab
+
+- Uses grunt to serve website up (use 'grunt serve')
+- Accessible by mobile devices (just type in the computer's ip)
+- Grunt watch and BrowserSync keeps all devices in sync with changes
+- Sass / Less Processing
+- Clear excess css with uncss
+- Minify CSS, JS, SVG's and other images
+- Create responsive images or spritesheets on the fly
+
 ## About Pattern Lab
 - [Pattern Lab Website](http://patternlab.io/)
 - [About Pattern Lab](http://patternlab.io/about.html)
