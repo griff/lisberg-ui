@@ -1,5 +1,26 @@
 module.exports = function(grunt) {
- 
+  
+
+  var os=require('os');
+  var ifaces=os.networkInterfaces();
+  var lookupIpAddress = null;
+  for (var dev in ifaces) {
+      if(dev !== "en1" && dev !== "en0") {
+          continue;
+      }
+      ifaces[dev].forEach(function(details){
+        if (details.family==='IPv4') {
+          lookupIpAddress = details.address;
+        }
+      });
+  }
+
+  //If an IP Address is passed
+  //we're going to use the ip/host from the param
+  //passed over the command line 
+  //over the ip addressed that was looked up
+  var ipAddress = grunt.option('host') || lookupIpAddress;
+
   // Project configuration.
   grunt.initConfig({
     // Task configuration.
@@ -182,7 +203,7 @@ module.exports = function(grunt) {
     connect: {
       options: {
         port: 9000,
-        // change this to '0.0.0.0' to access the server from outside
+        // change this to '0.0.0.0' to access the server from outsideres
         hostname: '0.0.0.0',
         livereload: 35729
       },
@@ -217,8 +238,20 @@ module.exports = function(grunt) {
             src: 'public/css/style.css'
         },
         options: {
-            watchTask: true
+          host: ipAddress,
+          watchTask: true
         }
+    },
+
+    replace: {
+      ip: {
+        src: ['public/index.html','core/templates/pattern-header-footer/footer.html'],             // source files array (supports minimatch)
+        overwrite:true,            // destination directory or file
+        replacements: [{
+          from: '0.0.0.0',                   // string replacement
+          to: ipAddress
+        }]
+      }
     },
 
     concurrent: {
@@ -238,6 +271,8 @@ module.exports = function(grunt) {
 
     grunt.task.run([
       'concurrent',
+      'replace',
+      'shell:patternlab',
       'connect:livereload',
       'browserSync',
       'watch'
