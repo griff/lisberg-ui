@@ -1,8 +1,8 @@
 {
-  "name": "wellforia-style-guide",
+  "name": "patternlab",
   "version": "0.0.0",
-  "description": "Live style guide for the DSM Wellforia Project",
-  "author": "Ivan Mayes, Michael May",
+  "description": "PhpLab",
+  "author": "Shoptology",
   "license": "MIT",
   "devDependencies": {
     "grunt": "^0.4.4",
@@ -18,7 +18,11 @@
     "grunt-responsive-images": "^0.1.1",
     "grunt-shell": "^0.6.4",
     "grunt-svgmin": "^0.4.0",
+    "grunt-text-replace": "^0.3.11",
     "grunt-uncss": "^0.3.3",
     "load-grunt-tasks": "^0.4.0"
+  },
+  "scripts": {
+    "generate": "php core/builder.php -g"
   }
 }
