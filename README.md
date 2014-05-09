@@ -8,6 +8,15 @@
 - Minify CSS, JS, SVG's and other images
 - Create responsive images or spritesheets on the fly
 
+### Getting Started
+- Clone the repo
+- Run 'npm install'
+- Run 'npm run generate' to build the patternlab demo content
+- Run 'grunt serve' to bring up the demo view
+- Edit your files and the view should update automatically on all devices!
+- Run 'grunt build' to process images, minify, uncss, and other things
+- Enjoy!
+
 ## About Pattern Lab
 - [Pattern Lab Website](http://patternlab.io/)
 - [About Pattern Lab](http://patternlab.io/about.html)
