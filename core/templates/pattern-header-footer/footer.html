@@ -42,6 +42,12 @@
 			}
 		})();
 	</script>
+
+	<!-- Browser Sync -->
+	<script src='//0.0.0.0:3000/socket.io/socket.io.js'></script>
+	<script>var ___socket___ = io.connect('http://0.0.0.0:3000');</script>
+	<script src='//0.0.0.0:3001/client/browser-sync-client.0.8.2.js'></script>
+
 	<script id="pl-js-insert-{{ cacheBuster }}">
 		(function() {
 			if (self != top) {
