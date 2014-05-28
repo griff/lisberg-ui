@@ -32,6 +32,9 @@ module.exports = function(grunt) {
 
     less: {
       build: {
+        options: {
+          sourceMap: true
+        },
         files: {
           "public/css/style.css": "source/less/style.less"
         }
