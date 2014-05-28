@@ -40,6 +40,10 @@ module.exports = function(grunt) {
 
     sass: {
       dist: {
+        options: {                       // Target options
+          sourcemap: true
+        },
+
         files: {
           'public/css/style.css': 'source/css/style.scss'
         }
