@@ -1,7 +1,6 @@
 .DS_Store
 public/*
 source/*
-core/templates/pattern-header-footer/footer.html
 config.ini
 latest-change.txt
 *-ck.js

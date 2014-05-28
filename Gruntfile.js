@@ -245,7 +245,7 @@ module.exports = function(grunt) {
 
     replace: {
       ip: {
-        src: ['public/index.html','core/templates/pattern-header-footer/footer.html'],             // source files array (supports minimatch)
+        src: ['public/**/*.html'],             // source files array (supports minimatch)
         overwrite:true,            // destination directory or file
         replacements: [{
           from: '0.0.0.0',                   // string replacement
@@ -271,8 +271,8 @@ module.exports = function(grunt) {
 
     grunt.task.run([
       'concurrent',
-      'replace',
       'shell:patternlab',
+      'replace',
       'connect:livereload',
       'browserSync',
       'watch'
