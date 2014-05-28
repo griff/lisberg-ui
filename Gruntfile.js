@@ -27,8 +27,19 @@ module.exports = function(grunt) {
     shell: {
       patternlab: {
         command: "php core/builder.php -gp"
+      },
+      wraith: {
+        command: [
+          "cd tests/wraith",
+          "wraith capture config",
+          "../../"
+          ].join('&&')
       }
     },
+
+    /*
+        CSS
+    */
 
     less: {
       build: {
@@ -53,6 +64,16 @@ module.exports = function(grunt) {
       }
     },
 
+    cssmin: {
+      minify: {
+        expand: true,
+        cwd: 'public/css/',
+        src: ['style.css'],
+        dest: 'public/css/',
+        ext: '.min.css'
+      }
+    },
+
     uncss : {
       dist : {
         options : {
@@ -64,6 +85,10 @@ module.exports = function(grunt) {
         }
       }
     },
+
+    /*
+        Images
+    */
 
     svgmin: {                       // Task
       options: {                  // Configuration that will be passed directly to SVGO
@@ -129,15 +154,9 @@ module.exports = function(grunt) {
       }
     },
 
-    cssmin: {
-      minify: {
-        expand: true,
-        cwd: 'public/css/',
-        src: ['style.css'],
-        dest: 'public/css/',
-        ext: '.min.css'
-      }
-    },
+    /*
+        Performance & Testing
+    */
 
     pagespeed: {
         prod: {
@@ -153,6 +172,10 @@ module.exports = function(grunt) {
             url: "https://developers.google.com"
         }
     },
+
+    /*
+        Server Related
+    */
 
     watch: {
       html: {
@@ -250,6 +273,10 @@ module.exports = function(grunt) {
         }
     },
 
+    /*
+        Misc
+    */
+
     replace: {
       ip: {
         src: ['public/**/*.html'],             // source files array (supports minimatch)
@@ -268,6 +295,10 @@ module.exports = function(grunt) {
     }
   });
  
+  /*
+      Tasks
+  */
+
   // These plugins provide necessary tasks.
   require('load-grunt-tasks')(grunt);
 
@@ -292,6 +323,7 @@ module.exports = function(grunt) {
   });
  
   grunt.registerTask('default', ['build']);
+  grunt.registerTask('wraith', ['shell:wraith']);
   grunt.registerTask('test', ['pagespeed']);
   grunt.registerTask('build', ['concurrent', 'uncss', 'cssmin']);
  
