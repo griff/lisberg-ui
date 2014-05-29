@@ -25,10 +25,10 @@ module.exports = function(grunt) {
   grunt.initConfig({
     // Task configuration.
     shell: {
-      patternlab: {
+      patternlab: { // Core Patternlab build script
         command: "php core/builder.php -gp"
       },
-      wraith: {
+      wraith: { // Visual Regression Testing
         command: [
           "cd tests/wraith",
           "wraith capture config",
@@ -74,7 +74,7 @@ module.exports = function(grunt) {
       }
     },
 
-    uncss : {
+    uncss : { // Removes unused css
       dist : {
         options : {
           stylesheets : ['/css/style.css'],
@@ -90,7 +90,7 @@ module.exports = function(grunt) {
         Images
     */
 
-    svgmin: {                       // Task
+    svgmin: {                     // Task
       options: {                  // Configuration that will be passed directly to SVGO
           plugins: [{
               removeViewBox: false
@@ -157,19 +157,28 @@ module.exports = function(grunt) {
     /*
         Performance & Testing
     */
+    'html-inspector': {
+        all: {
+            src: ['public/patterns/*.html']
+        }
+    },
 
-    pagespeed: {
-        prod: {
-          options: {
-              url: "public/patterns/04-pages-00-homepage/04-pages-00-homepage.html",
-              locale: "en_GB",
-              strategy: "desktop",
-              threshold: 80
-          }
+    csscss: {
+      dist: {
+        src: ['source/css/style.scss']
+      }
+    },
+
+    cssmetrics: {
+        dev: {
+            src: [
+                'public/css/style.css'
+            ]
         },
-        options: {
-            key: "AIzaSyAjzushvAfgdUNZ__2kuHi7RFSeKmqB_Oc",
-            url: "https://developers.google.com"
+        prod: {
+          src: [
+            'public/css/style.min.css'
+          ]
         }
     },
 
@@ -324,7 +333,7 @@ module.exports = function(grunt) {
  
   grunt.registerTask('default', ['build']);
   grunt.registerTask('wraith', ['shell:wraith']);
-  grunt.registerTask('test', ['pagespeed']);
-  grunt.registerTask('build', ['concurrent', 'uncss', 'cssmin']);
+  grunt.registerTask('test', ['csscss', 'cssmetrics:dev', 'html-inspector']);
+  grunt.registerTask('build', ['concurrent', 'uncss', 'cssmin', 'cssmetrics:prod']);
  
 };
