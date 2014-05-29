@@ -159,7 +159,7 @@ module.exports = function(grunt) {
     */
     'html-inspector': {
         all: {
-            src: ['public/patterns/*.html']
+            src: ['public/patterns/**/*.html', '!public/patterns/**/*escaped.html']
         }
     },
 
@@ -333,7 +333,7 @@ module.exports = function(grunt) {
  
   grunt.registerTask('default', ['build']);
   grunt.registerTask('wraith', ['shell:wraith']);
-  grunt.registerTask('test', ['csscss', 'cssmetrics:dev', 'html-inspector']);
+  grunt.registerTask('test', ['csscss', 'cssmetrics:dev');
   grunt.registerTask('build', ['concurrent', 'uncss', 'cssmin', 'cssmetrics:prod']);
  
 };

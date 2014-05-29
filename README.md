@@ -14,6 +14,9 @@
 - Run 'npm run generate' to build the patternlab demo content
 - Run 'grunt serve' to bring up the demo view
 - Edit your files and the view should update automatically on all devices!
+- Run 'grunt test' to lint, find duplicates, and get metrics on your css
+- Run 'grunt html-inspector' to lint your processed html files
+- Run 'grunt wraith' to run visual regression testing between your style guide and live site (Config your site url in tests/wraith/configs)
 - Run 'grunt build' to process images, minify, uncss, and other things
 - Enjoy!
 
