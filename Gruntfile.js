@@ -333,7 +333,7 @@ module.exports = function(grunt) {
  
   grunt.registerTask('default', ['build']);
   grunt.registerTask('wraith', ['shell:wraith']);
-  grunt.registerTask('test', ['csscss', 'cssmetrics:dev');
+  grunt.registerTask('test', ['csscss', 'cssmetrics:dev']);
   grunt.registerTask('build', ['concurrent', 'uncss', 'cssmin', 'cssmetrics:prod']);
  
 };
