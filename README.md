@@ -1,6 +1,7 @@
 ## Shoptology Updated Pattern Lab
 
 - Uses grunt to serve website up (use 'grunt serve')
+- Handlebars templating
 - Accessible by mobile devices (just type in the computer's ip)
 - Grunt watch and BrowserSync keeps all devices in sync with changes
 - Sass / Less Processing
