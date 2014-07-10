@@ -249,7 +249,7 @@ class Builder {
 				if ($pathInfo["render"]) {
 					
 					// get the rendered, escaped, and mustache pattern
-					$this->generatePatternFile($pathInfo["patternSrcPath"].".handlebars",$pathInfo["patternPartial"],$pathInfo["patternDestPath"],$pathInfo["patternState"]);
+					$this->generatePatternFile($pathInfo["patternSrcPath"].".hbs",$pathInfo["patternPartial"],$pathInfo["patternDestPath"],$pathInfo["patternState"]);
 					
 				}
 				
@@ -292,7 +292,7 @@ class Builder {
 		// write out the various pattern files
 		file_put_contents(__DIR__.$this->pp.$path."/".$path.".html",$rf);
 		file_put_contents(__DIR__.$this->pp.$path."/".$path.".escaped.html",$e);
-		file_put_contents(__DIR__.$this->pp.$path."/".$path.".handlebars",$m);
+		file_put_contents(__DIR__.$this->pp.$path."/".$path.".hbs",$m);
 		if ($this->enableCSS && isset($this->patternCSS[$p])) {
 			file_put_contents(__DIR__.$this->pp.$path."/".$path.".css",htmlentities($this->patternCSS[$p]));
 		}
@@ -425,7 +425,7 @@ class Builder {
 				$filename       = $patternInfo["patternSrcPath"];
 				
 				// if a file doesn't exist it assumes it's a pseudo-pattern and will use the last lineage found
-				if (file_exists(__DIR__.$this->sp.$filename.".handlebars")) {
+				if (file_exists(__DIR__.$this->sp.$filename.".hbs")) {
 					$foundLineages = array_unique($this->getLineage($filename));
 				}
 				
@@ -606,15 +606,15 @@ class Builder {
 				// starting a new set of pattern types. it might not have any pattern subtypes
 				$patternSubtypeSet = true;
 				
-			} else if ($object->isFile() && ($object->getExtension() == "handlebars")) {
+			} else if ($object->isFile() && ($object->getExtension() == "hbs")) {
 				
 				/*************************************
 				 * This section is for:
 				 *    Mustache patterns
 				 *************************************/
 				
-				$patternFull  = $object->getFilename();                                        // 00-colors.handlebars
-				$pattern      = str_replace(".handlebars","",$patternFull);                      // 00-colors
+				$patternFull  = $object->getFilename();                                        // 00-colors.hbs
+				$pattern      = str_replace(".hbs","",$patternFull);                      // 00-colors
 				
 				// check for pattern state
 				$patternState = "";
@@ -672,7 +672,7 @@ class Builder {
 				}
 				
 				// add all patterns to patternPaths
-				$patternSrcPath  = str_replace(__DIR__.$this->sp,"",str_replace(".handlebars","",$object->getPathname()));
+				$patternSrcPath  = str_replace(__DIR__.$this->sp,"",str_replace(".hbs","",$object->getPathname()));
 				$patternDestPath = $patternPathDash;
 				$this->patternPaths[$patternTypeDash][$patternDash] = array("patternSrcPath"  => $patternSrcPath,
 																			"patternDestPath" => $patternDestPath,
@@ -702,9 +702,9 @@ class Builder {
 					}
 					
 					// set-up the names
-					// $patternFull is defined above                                                     00-colors.handlebars
+					// $patternFull is defined above                                                     00-colors.hbs
 					$patternBits     = explode("~",$patternFull);
-					$patternBase     = $patternBits[0].".handlebars";                                   // 00-homepage.handlebars
+					$patternBase     = $patternBits[0].".hbs";                                   // 00-homepage.hbs
 					$patternBaseDash = $this->getPatternName($patternBits[0],false);                  // homepage
 					$patternBaseJSON = $patternBits[0].".json";                                       // 00-homepage.json
 					$stripJSON       = str_replace(".json","",$patternBits[1]);
@@ -736,7 +736,7 @@ class Builder {
 					
 					// set-up the info for the nav
 					$patternInfo = array("patternPath"    => $patternPathDash."/".$patternPathDash.".html",
-										 "patternSrcPath" => str_replace(__DIR__.$this->sp,"",preg_replace("/\~(.*)\.json/",".handlebars",$object->getPathname())),
+										 "patternSrcPath" => str_replace(__DIR__.$this->sp,"",preg_replace("/\~(.*)\.json/",".hbs",$object->getPathname())),
 										 "patternName"    => ucwords($patternClean),
 										 "patternState"   => $patternState,
 										 "patternPartial" => $patternPartial);
@@ -781,7 +781,7 @@ class Builder {
 				 * This section is for:
 				 *    JSON data
 				 *************************************/
-				$patternFull    = $object->getFilename();                                            // 00-colors.handlebars
+				$patternFull    = $object->getFilename();                                            // 00-colors.hbs
 				$pattern        = str_replace(".listitems","",str_replace(".json","",$patternFull)); // 00-colors
 				$patternDash    = $this->getPatternName($pattern,false);                             // colors
 				$patternPartial = $patternTypeDash."-".$patternDash;                                 // atoms-colors
@@ -972,8 +972,8 @@ class Builder {
 		$extraFoot          = file_get_contents(__DIR__."/../../templates/pattern-header-footer/footer-pattern.html");
 		
 		// gather the user-defined header and footer information
-		$patternHeadPath    = __DIR__.$this->sp."00-atoms/00-meta/_00-head.handlebars";
-		$patternFootPath    = __DIR__.$this->sp."00-atoms/00-meta/_01-foot.handlebars";
+		$patternHeadPath    = __DIR__.$this->sp."00-atoms/00-meta/_00-head.hbs";
+		$patternFootPath    = __DIR__.$this->sp."00-atoms/00-meta/_01-foot.hbs";
 		$patternHead        = (file_exists($patternHeadPath)) ? file_get_contents($patternHeadPath) : "";
 		$patternFoot        = (file_exists($patternFootPath)) ? file_get_contents($patternFootPath) : "";
 		
@@ -992,7 +992,7 @@ class Builder {
 	* @return {Array}        a list of patterns
 	*/
 	protected function getLineage($filename) {
-		$data = file_get_contents(__DIR__.$this->sp.$filename.".handlebars");
+		$data = file_get_contents(__DIR__.$this->sp.$filename.".hbs");
 		//$data = file_get_contents($filename);
 		if (preg_match_all('/{{>([ ]+)?([A-Za-z0-9-]+)(?:\:[A-Za-z0-9-]+)?(?:(| )\(.*)?([ ]+)}}/',$data,$matches)) {
 			return $matches[2];
@@ -1054,7 +1054,7 @@ class Builder {
 	* @return {String}       the directory for the pattern
 	*/
 	protected function getPath($filepath,$type = "m") {
-		$file = ($type == 'm') ? '\.handlebars' : '\.json';
+		$file = ($type == 'm') ? '\.hbs' : '\.json';
 		if (preg_match('/\/('.$this->patternTypesRegex.'\/(([A-z0-9-]{1,})\/|)([A-z0-9-]{1,}))'.$file.'$/',$filepath,$matches)) {
 			return $matches[1];
 		}

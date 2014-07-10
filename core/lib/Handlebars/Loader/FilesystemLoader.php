@@ -41,7 +41,7 @@ use Handlebars\String;
 class FilesystemLoader implements Loader
 {
     private $_baseDir;
-    private $_extension = '.handlebars';
+    private $_extension = '.hbs';
     private $_prefix = '';
     private $_templates = array();
 
@@ -156,10 +156,10 @@ class FilesystemLoader implements Loader
                 $fileName .= $this->_extension;
             }
 
-            var_dump('Filename: '. $fileName);
+            //var_dump('Filename: '. $fileName);
 
             if (file_exists($fileName)) {
-                var_dump('exists');
+                //var_dump('exists');
                 return $fileName;
             }
         }

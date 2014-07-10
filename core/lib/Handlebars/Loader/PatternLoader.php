@@ -34,7 +34,7 @@ use Handlebars\String;
 class PatternLoader implements Loader
 {
     private $baseDir;
-    private $extension    = '.handlebars';
+    private $extension    = '.hbs';
     private $templates    = array();
     private $patternPaths = array();
 

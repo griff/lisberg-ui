@@ -378,8 +378,8 @@ class Template
     {
         $sectionName = $current[Tokenizer::NAME];
 
-        var_dump('Section Name');
-        var_dump($sectionName);
+        //var_dump('Section Name');
+        //var_dump($sectionName);
 
         // fallback to mustache style each/with/for just if there is
         // no argument at all.
