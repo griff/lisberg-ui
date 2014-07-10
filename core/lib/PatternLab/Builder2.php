@@ -13,8 +13,8 @@
 namespace PatternLab;
 
 use Handlebars\Handlebars as Engine;
-use \Handlebars\Loader\PatternLoader as PatternLoader;
-use \Handlebars\Loader\FilesystemLoader as FilesystemLoader;
+use \Mustache_Loader_PatternLoader as PatternLoader;
+use Handlebars\Loader\FilesystemLoader as FilesystemLoader;
 
 class Builder {
 	
@@ -23,7 +23,7 @@ class Builder {
 	* Also, create the config if it doesn't already exist
 	*/
 	public function __construct($config = array()) {
-		 
+		
 		// making sure the config isn't empty
 		if (empty($config)) {
 			print "A set of configuration options is required to use Pattern Lab.\n";
@@ -81,8 +81,13 @@ class Builder {
 	*/
 	protected function loadMustachePatternLoaderInstance() {
 		$this->mpl = new Engine(array(
-						"loader" => new PatternLoader(__DIR__.$this->sp,array("patternPaths" => $this->patternPaths)),
-						"partials_loader" => new PatternLoader(__DIR__.$this->sp,array("patternPaths" => $this->patternPaths))
+						"loader" => new FilesystemLoader(__DIR__."/../../../source/_patterns",array(
+            'prefix' => '_'
+        )),
+						"partials_loader" => new FilesystemLoader(__DIR__."/../../../source/_patterns"
+							,array(
+            'prefix' => '_'
+        ))
 		));
 	}
 	
@@ -244,9 +249,13 @@ class Builder {
 		foreach($this->patternPaths as $patternType) {
 			
 			foreach($patternType as $pattern => $pathInfo) {
+
 				
 				// make sure this pattern should be rendered
 				if ($pathInfo["render"]) {
+
+					var_dump('Path Info:');
+					var_dump($pathInfo);
 					
 					// get the rendered, escaped, and mustache pattern
 					$this->generatePatternFile($pathInfo["patternSrcPath"].".handlebars",$pathInfo["patternPartial"],$pathInfo["patternDestPath"],$pathInfo["patternState"]);
@@ -268,6 +277,11 @@ class Builder {
 	*/
 	private function generatePatternFile($f,$p,$path,$state) {
 		
+		var_dump($f);
+		var_dump($p);
+		var_dump($path);
+		var_dump($state);
+
 		// render the pattern and return it as well as the encoded version
 		list($rf,$e) = $this->renderPattern($f,$p);
 		
@@ -606,7 +620,7 @@ class Builder {
 				// starting a new set of pattern types. it might not have any pattern subtypes
 				$patternSubtypeSet = true;
 				
-			} else if ($object->isFile() && ($object->getExtension() == "handlebars")) {
+			} else if ($object->isFile() && ($object->getExtension() == "mustache")) {
 				
 				/*************************************
 				 * This section is for:
@@ -875,6 +889,8 @@ class Builder {
 			
 			$patternType     = $patternTypeValues["patternType"];
 			$patternTypeDash = $patternTypeValues["patternTypeDash"];
+
+			print_r($patternTypeValues);
 			
 			// if this has a second level of patterns check them out (means we don't process pages & templates)
 			if (isset($patternTypeValues["patternTypeItems"]) && (!in_array($patternType,$this->styleGuideExcludes))) {
@@ -954,6 +970,8 @@ class Builder {
 				}
 				
 			} else {
+
+				print_r($patternTypeValues["patternItems"]);
 				
 				foreach ($patternTypeValues["patternItems"] as $patternSubtypeKey => $patternSubtypeItem) {
 					// set the pattern state

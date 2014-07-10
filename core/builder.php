@@ -28,6 +28,9 @@ $loader = new SplClassLoader('Mustache', __DIR__.'/lib');
 $loader->setNamespaceSeparator("_");
 $loader->register();
 
+require 'lib/Handlebars/Autoloader.php';
+Handlebars\Autoloader::register();
+
 
 /*******************************
  * Console Set-up
