@@ -31,6 +31,6 @@
   },
   "scripts": {
     "generate": "php core/builder.php -g",
-    "install": "sudo gem install wraith && brew install jpeg && pip install glue"
+    "install": "gem install wraith sass csscss && pip install glue"
   }
 }
