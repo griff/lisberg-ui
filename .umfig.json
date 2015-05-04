@@ -6,7 +6,8 @@
     "docker build --rm -t %docker.tag% .",
     "docker run --rm %docker.tag% grunt test",
     {
-      "type": "deploy_docker"
+      "type": "deploy_docker",
+      "docker.tag": "%docker.tag%"
     }
   ],
   "artifacts": [
