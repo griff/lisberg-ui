@@ -1,5 +1,7 @@
 module.exports = function(grunt) {
   
+  grunt.loadNpmTasks('grunt-postcss');
+  var autoprefixer = require('autoprefixer-core');
 
   var os=require('os');
   var ifaces=os.networkInterfaces();
@@ -55,12 +57,24 @@ module.exports = function(grunt) {
     sass: {
       dist: {
         options: {                       // Target options
-          sourcemap: true
+          sourcemap: 'inline'
         },
 
         files: {
           'public/css/style.css': 'source/css/style.scss'
         }
+      }
+    },
+
+    postcss: {
+      options: {
+        map: true,
+        processors: [
+          autoprefixer({browsers: ['last 2 version', 'ie 9']}).postcss
+        ]
+      },
+      dist: {
+        src: 'public/css/*.css'
       }
     },
 
@@ -189,7 +203,7 @@ module.exports = function(grunt) {
     watch: {
       html: {
         files: [
-          'source/_patterns/**/*.mustache',
+          'source/_patterns/**/*.hbs',
           'source/_patterns/**/*.json',
           'source/_data/*.json',
         ],
@@ -201,7 +215,14 @@ module.exports = function(grunt) {
       },
       styles: {
         files: [ 'source/css/**/*.scss' ],
-        tasks: [ 'sass' ],
+        tasks: [ 'sass', 'postcss' ],
+        options: {
+          spawn: false
+        }
+      },
+      raw_styles: {
+        files: [ 'public/css/*.css' ],
+        tasks: [ 'postcss' ],
         options: {
           spawn: false
         }
@@ -248,10 +269,12 @@ module.exports = function(grunt) {
       },
       livereload: {
         options: {
-          open: true,
+          open: false,
           base: [
             '.tmp',
-            'public'
+            'public',
+            'source/bootstrap',
+            '.'
           ]
         }
       },
@@ -277,8 +300,13 @@ module.exports = function(grunt) {
             src: 'public/css/style.css'
         },
         options: {
+          open: false, 
           host: ipAddress,
-          watchTask: true
+          watchTask: true,
+          ports: {
+              min: 6001,
+              max: 6100
+          }
         }
     },
 

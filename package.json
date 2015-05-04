@@ -5,6 +5,7 @@
   "author": "Shoptology",
   "license": "MIT",
   "devDependencies": {
+    "autoprefixer-core": "^5.1.7",
     "grunt": "^0.4.4",
     "grunt-browser-sync": "^0.8.2",
     "grunt-concurrent": "^0.5.0",
@@ -19,6 +20,7 @@
     "grunt-dr-svg-sprites": "^0.5.5",
     "grunt-html-inspector": "^0.1.4",
     "grunt-pagespeed": "^0.1.3",
+    "grunt-postcss": "^0.3.0",
     "grunt-responsive-images": "^0.1.1",
     "grunt-shell": "^0.6.4",
     "grunt-svgmin": "^0.4.0",
