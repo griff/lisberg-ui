@@ -349,7 +349,7 @@ module.exports = function(grunt) {
       'shell:patternlab',
       'replace',
       'connect:livereload',
-      'browserSync',
+      //'browserSync',
       'watch'
     ]);
   });
