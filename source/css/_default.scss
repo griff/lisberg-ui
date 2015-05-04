@@ -1,0 +1,15 @@
+input:not([type=checkbox]):not([type=radio]):not([type=range]), textarea {
+  @extend .form-control;
+}
+
+input[type=checkbox] {
+  @extend .checkbox;
+}
+
+input[type=radio] {
+  @extend .radio;
+}
+
+label {
+  @extend .control-label;
+}

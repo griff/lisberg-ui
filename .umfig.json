@@ -1,0 +1,13 @@
+{
+  "parameters": {
+    "docker.tag": "griff/lisberg-ui:%build.number%"
+  },
+  "steps": [
+    "docker build --rm -t %docker.tag% .",
+    "docker run -it %docker.tag% grunt test",
+    "docker save -o dist/docker.tar %docker.tag%"
+  ],
+  "artifacts": [
+    "dist/docker.tar"
+  ]
+}

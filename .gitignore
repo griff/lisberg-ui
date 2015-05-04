@@ -1,8 +1,6 @@
 .DS_Store
 public/*
-source/*
 node_modules/*
-config.ini
 latest-change.txt
 *-ck.js
 *.sass-cache/

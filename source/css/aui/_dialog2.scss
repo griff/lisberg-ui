@@ -1,0 +1,296 @@
+$adg-color-light-gray: #f5f5f5;
+$adg-color-medium-gray: #707070;
+$adg-color-medium-gray-2: #999;
+$adg-color-medium-gray-3: #ccc;
+$adg-color-warm-red: #d04437;
+$adg-color-white: #fff;
+$adg-color-charcoal: #333;
+
+$layer-buffer: 100px;
+
+$footer-height: 51px; /* NOTE: This value is hard-coded in dialog.js as BUTTONS_HEIGHT */
+$header-height: 56px;
+
+$aui-dialog2-footer-bg-color: $adg-color-light-gray;
+$aui-dialog2-footer-hint-text-color: $adg-color-medium-gray;
+$aui-dialog2-header-warning-bg-color: $adg-color-warm-red;
+$aui-dialog2-header-warning-text-color: $adg-color-white;
+$aui-dialog-header-close-icon-color: $adg-color-medium-gray;
+
+$aui-dialog-button-hover-border-color: $adg-color-medium-gray-2;
+$aui-dialog-border-color: $adg-color-medium-gray-3;
+
+$aui-text-color: $adg-color-charcoal;
+$aui-panel-bg-color: #fff;
+
+
+$dialog-height-small: 200px;
+$dialog-height-medium: 300px;
+$dialog-height-large: 500px;
+
+$dialog-content-height-small: $dialog-height-small - ($header-height + $footer-height);
+$dialog-content-height-medium: $dialog-height-medium - ($header-height + $footer-height);
+$dialog-content-height-large: $dialog-height-large - ($header-height + $footer-height);
+
+$dialog-width-small: 400px;
+$dialog-width-medium: 600px;
+$dialog-width-large: 800px;
+$dialog-width-xlarge: 980px;
+
+$dialog-overflow-buffer-bottom: ($layer-buffer + $layer-buffer) + ($footer-height + $header-height);
+
+
+.aui-dialog2 {
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    position: relative;
+
+    /* Assumes an explicit width is set for centering */
+    left: 0;
+    right: 0;
+    margin-left: auto;
+    margin-right: auto;
+    &.aui-layer{ //needed to trump the specifity of the layer sizing
+        height: calc(100% - $dialog-overflow-buffer-bottom);
+    }
+}
+
+.aui-dialog2.aui-layer {
+    position: fixed;
+    overflow: visible;
+    top: $layer-buffer + $header-height;
+}
+
+.aui-dialog2-small {
+    width: $dialog-width-small;
+    min-height: $dialog-content-height-small + $footer-height;
+}
+
+.aui-dialog2-medium {
+    width: $dialog-width-medium;
+    min-height: $dialog-content-height-medium + $footer-height;
+}
+
+.aui-dialog2-large {
+    width: $dialog-width-large;
+    min-height: $dialog-content-height-large + $footer-height;
+}
+
+.aui-dialog2-xlarge {
+    width: $dialog-width-xlarge;
+    min-height: $dialog-content-height-large + $footer-height;
+}
+
+.aui-dialog2-small .aui-dialog2-content {
+    min-height: $dialog-content-height-small;
+}
+
+.aui-dialog2-medium .aui-dialog2-content {
+    min-height: $dialog-content-height-medium;
+}
+
+.aui-dialog2-xlarge .aui-dialog2-content,
+.aui-dialog2-large .aui-dialog2-content {
+    min-height: $dialog-content-height-large;
+}
+
+@media all and (max-height: 700px) { /* 500 + 100 each side */
+    .aui-dialog2-large .aui-dialog2-content,
+    .aui-dialog2-xlarge .aui-dialog2-content {
+        min-height: $dialog-content-height-medium;
+    }
+
+    .aui-dialog2-large, .aui-dialog2-xlarge {
+        height: $dialog-content-height-medium + $footer-height;
+    }
+
+}
+
+@media all and (max-height: 500px) { /* 300 + 100 each side */
+    .aui-dialog2-medium .aui-dialog2-content,
+    .aui-dialog2-large .aui-dialog2-content,
+    .aui-dialog2-xlarge .aui-dialog2-content {
+        min-height: $dialog-content-height-small;
+    }
+
+    .aui-dialog2-medium, .aui-dialog2-large, .aui-dialog2-xlarge {
+        height: $dialog-content-height-small + $footer-height;
+    }
+}
+
+@media all and (max-width: 1000px) { /* 980 + 10 each side */
+    .aui-dialog2-xlarge {
+        width: 100%;
+        height: calc(100% - $header-height - $footer-height);
+    }
+    .aui-dialog2-xlarge.aui-layer {
+        top: $header-height;
+    }
+    .aui-dialog2-xlarge .aui-dialog2-content {
+        height: 100%;
+    }
+}
+
+@media all and (max-width: 820px) { /* 800 + 10 each side */
+    .aui-dialog2-large {
+        width: 100%;
+        height: calc(100% - $header-height - $footer-height);
+    }
+    .aui-dialog2-large.aui-layer {
+        top: $header-height;
+    }
+    .aui-dialog2-large .aui-dialog2-content {
+        height: 100%;
+    }
+}
+
+@media all and (max-width: 620px) { /* 600 + 10 each side */
+    .aui-dialog2-medium {
+        width: 100%;
+        height: calc(100% - $header-height - $footer-height);
+    }
+    .aui-dialog2-medium.aui-layer {
+        top: $header-height;
+    }
+    .aui-dialog2-medium .aui-dialog2-content {
+        height: 100%;
+    }
+}
+
+@media all and (max-width: 420px) { /* 400 + 10 each side */
+    .aui-dialog2-small {
+        width: 100%;
+        height: calc(100% - $header-height - $footer-height);
+    }
+    .aui-dialog2-small.aui-layer {
+        top: $header-height;
+    }
+    .aui-dialog2-small .aui-dialog2-content {
+        height: 100%;
+    }
+}
+
+.aui-dialog2-header,
+.aui-dialog2-footer {
+    background: $aui-dialog2-footer-bg-color;
+}
+
+/*
+ * This is not part of the all aui-dialog2-content instances so that connect
+ * dialogs can be full-height inside an iframe
+ */
+.aui-dialog2 .aui-dialog2-content {
+    max-height: 100%;
+}
+
+.aui-dialog2-content {
+    background-color: $aui-panel-bg-color;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    overflow: auto;
+    padding: 20px;
+}
+
+.aui-dialog2 .aui-dialog2-header {
+    margin-top: -$header-height;
+}
+
+.aui-dialog2-header {
+    border-bottom: 1px solid $aui-dialog-border-color;
+    border-radius: 5px 5px 0 0;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    color: $aui-text-color;
+    font-weight: normal;
+    height: $header-height;
+    overflow: hidden;
+    padding: 0 20px;
+    width: 100%;
+    display: table;
+}
+
+.aui-dialog2-header-actions {
+    width: 100%;
+}
+
+.aui-dialog2-header-main,
+.aui-dialog2-header-actions,
+.aui-dialog2-header-secondary,
+.aui-dialog2-header-close {
+    display: table-cell;
+    vertical-align: middle;
+}
+
+.aui-dialog2[data-aui-modal="true"] .aui-dialog2-header-close {
+    display: none;
+}
+
+.aui-dialog2-footer-hint {
+    color: $aui-dialog2-footer-hint-text-color;
+    line-height: 31px; /* aui-dialog2-footer line-height - aui-dialog2-footer padding-bottom */
+}
+
+.aui-dialog2-footer-hint,
+.aui-dialog2-header-main {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    padding-right: 10px;
+}
+
+.aui-dialog2-header-main {
+    max-width: 400px;
+}
+
+.aui-dialog2-header-secondary,
+.aui-dialog2-header-close,
+.aui-dialog2-footer-actions {
+    text-align: right;
+}
+
+.aui-dialog2-footer-actions {
+    float: right;
+}
+
+.aui-dialog2-header-close {
+    width: 20px;
+    height: 20px;
+    padding-left: 5px;
+    text-align: right;
+    vertical-align: middle;
+    line-height: 100%;
+    cursor: pointer;
+    color: $aui-dialog-header-close-icon-color;
+}
+
+.aui-dialog2-warning .aui-dialog2-header {
+    background-color: $aui-dialog2-header-warning-bg-color;
+    color: $aui-dialog2-header-warning-text-color;
+
+    .aui-dialog2-header-main,
+    .aui-dialog2-header-actions a,
+    .aui-dialog2-header-secondary a,
+    .aui-dialog2-header-close {
+        color: inherit;
+    }
+}
+
+.aui-dialog2-header-close .aui-icon {
+    vertical-align: middle;
+}
+
+.aui-dialog2-footer {
+    border-top: 1px solid $aui-dialog-border-color;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    height: $footer-height;
+    overflow: hidden;
+    padding: 10px 20px;
+    width: 100%;
+    border-radius: 0 0 5px 5px;
+}
+
+.aui-dialog2-footer:empty {
+    height: 5px;
+    padding: 0;
+}

@@ -1,0 +1,110 @@
+.lui-check-button-slide {
+    /*
+    position: relative;
+    font: 12px Arial, sans-serif;
+    line-height: 2.166666666em;
+    height: 2.166666666em;
+    */
+    display: inline-block;
+
+    input[type=checkbox] {
+        z-index: -1;
+        position: absolute;
+        left: -10000px;
+    }
+
+    label {
+        position: relative;
+        display: inline-block;
+        width:100%;
+        height: 2.166666666em;
+        //padding: $padding-base-vertical $padding-base-horizontal;
+        font-size: $font-size-base;
+        line-height: $line-height-base;
+        color: $input-color;
+        background-color: $input-bg;
+        background-image: none; // Reset unusual Firefox-on-Android default style; see https://github.com/necolas/normalize.css/issues/214
+        border: 1px solid $input-border;
+        border-radius: $input-border-radius; // Note: This has no effect on <select>s in some browsers, due to the limited stylability of <select>s in CSS.
+        @include box-shadow(inset 0 1px 1px rgba(0,0,0,.075));
+        @include transition(border-color ease-in-out .15s, box-shadow ease-in-out .15s);
+
+        overflow: hidden;
+        cursor: pointer;
+
+        &:after {
+            display: inline-block;
+            padding: $padding-base-vertical $padding-base-horizontal;
+            content: attr(data-unchecked-label);
+            color: $input-color;
+            //position: absolute;
+            left: calc(2.83333333em + 6px);
+            z-index: 0;
+            text-shadow: 1px 1px 0px rgba(255,255,255,.15);
+            //width: 100%;
+            overflow: hidden;
+            font-weight: bold;
+            clip: rect(auto, auto, 2.166666666em, auto);
+            transition: all .4s ease;
+        }
+        &:before {
+            display: inline-block;
+            content: attr(data-checked-label);
+            padding: $padding-base-vertical $padding-base-horizontal;
+            color: $input-border-focus;
+            //position: absolute;
+            //left: 10px;
+            z-index: 0;
+            font-weight: bold;
+            overflow: hidden;
+            transition: all .4s ease;
+        }
+
+        .lui-check-button-slide-indicator {
+            display: block;
+            width: 50%;
+            height: calc(2.166666666em - 6px);
+
+            // border-radius: 50px;
+
+            transition: all .4s ease;
+            position: absolute;
+            top: 3px;
+            left: 3px;
+            z-index: 1;
+
+            border: 1px solid $btn-default-border;
+            border-radius: $input-border-radius;
+            //@include box-shadow(inset 0 1px 1px rgba(0,0,0,.075));
+            background-color: $input-bg;
+        }
+    }
+    input[type=checkbox][disabled] + label {
+        cursor: $cursor-disabled;
+        background-color: $input-bg-disabled;
+        opacity: 1; // iOS fix for unreadable disabled content; see https://github.com/twbs/bootstrap/issues/11655
+
+        &:before, &:after, .lui-check-button-slide-indicator {
+            background-color: $input-bg-disabled;
+            opacity: 1; // iOS fix for unreadable disabled content; see https://github.com/twbs/bootstrap/issues/11655
+        }
+    }
+
+    input[type=checkbox]:focus + label {
+        $color-rgba: rgba(red($input-border-focus), green($input-border-focus), blue($input-border-focus), .6);
+        border-color: $input-border-focus;
+        outline: 0;
+        @include box-shadow(inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px $color-rgba);
+    }
+
+    input[type=checkbox]:checked + label {
+        .lui-check-button-slide-indicator {
+            left: calc(50% - 3px);
+        }
+        &:after {
+            clip: rect(auto, auto, 2.166666666em, 2.83333333em);
+        }
+        &:before {
+        }
+    }
+}
