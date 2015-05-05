@@ -1,10 +1,12 @@
 {
   "parameters": {
-    "docker.tag": "griff/lisberg-ui:%build.number%"
+    "docker.tag": "griff/lisberg-ui:%build.number%",
+    "super.parameter": "Chunky bacon"
   },
   "steps": [
     "docker build --rm -t %docker.tag% .",
     "docker run --rm %docker.tag% grunt test",
+    "echo tell the world %super.parameter%",
     {
       "type": "deploy_docker",
       "docker.tag": "%docker.tag%"
