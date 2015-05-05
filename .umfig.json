@@ -1,7 +1,6 @@
 {
   "parameters": {
-    "docker.tag": "griff/lisberg-ui:%build.number%",
-    "muh": "det"
+    "docker.tag": "griff/lisberg-ui:%build.number%"
   },
   "steps": [
     "docker build --rm -t %docker.tag% .",
