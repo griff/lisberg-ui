@@ -1,6 +1,7 @@
 {
   "parameters": {
-    "docker.tag": "griff/lisberg-ui:%build.number%"
+    "docker.tag": "griff/lisberg-ui:%build.number%",
+    "super.parameter": "Chunky Bacon"
   },
   "steps": [
     "docker build --rm -t %docker.tag% .",
